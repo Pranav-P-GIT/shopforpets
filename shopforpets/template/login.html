@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <title>
+        Login page
+    </title>
+
+<body background="{% static 'img/pexels-matthias-zomer-422220.jpg' %}">
+
+    <center>
+        <form action="sub" method="get" name="abc">
+            <div
+                style="width:400px;height:300px;background-color:#e8f1dd3f;margin-top:100px;padding-top:50px;border-radius:10px;margin-left:600px;">
+                <h2 style="color:rgba(0, 0, 0, 0.966);">Log in </h2>
+                <input
+                    style="width:280px;height:30px;border:none;border-bottom:3px solid rgba(15, 1, 1, 0.781);border-radius:7px;padding-left:20px;margin-bottom:20px;font-size:15px;background-color:rgb(253, 253, 253);outline:none"
+                    type="text" placeholder="Username" name="uname" required><br>
+                <input
+                    style="width:280px;height:30px;border:none;border-bottom:3px solid rgba(7, 1, 1, 0.637);border-radius:7px;padding-left:20px;margin-bottom:20px;font-size:15px;background-color:rgb(224, 220, 220);outline:none"
+                    type="password" placeholder="Password" name="pname" required><br>
+                <button style="width:280px;height:30px;background-color:#7AB730;border:none;font-size:15px;color:white;"
+                    type="submit" >Submit</button>
+
+            </div>
+        </form>
+    </center>
+
+</body>
+
+</html>
