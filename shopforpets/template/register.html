@@ -42,7 +42,8 @@
 
 <body background="{% static 'img/pexels-erik-mclean-6275398.jpg' %}">
     <center>
-        <form action="regsub/" method="get" name="abc">
+        <form action="{% url 'registerpage' %}" method="post" name="abc">
+            {% csrf_token %}
         <div class="div">
             <h3>Register form</h3>
             <label class="label" for="name">Name:</label>
