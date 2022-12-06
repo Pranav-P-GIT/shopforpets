@@ -44,6 +44,7 @@
     <center>
         <form action="{% url 'registerpage' %}" method="post" name="abc">
             {% csrf_token %}
+            <font color="red">hello {{b}} </font>
         <div class="div">
             <h3>Register form</h3>
             <label class="label" for="name">Name:</label>
@@ -61,10 +62,15 @@
             <label for="t-and-c2">I accept the terms and conditions.</label>
             <span>Read <a href="https://link.com">terms and conditions</a></span><br><br>
             <button style="width:280px;height:30px;background-color:#7AB730;border:none;font-size:15px;color:white;"
-                type="submit">Sigh up</button><br>
+                type="submit">Sigh up</button><br><br><br>
         </div>
+        
+        
+
     </form>
+    
     </center>
+
 </body>
 
 </html>

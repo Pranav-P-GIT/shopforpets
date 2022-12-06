@@ -11,7 +11,32 @@ def test(request):
     val="php"
     return render(request,"test.html",{"a":val,"b":"object oriented"})
 def register(request):
-    return render(request,"register.html")  
+    if request.method=="POST":
+        username=request.POST["uname"]
+        firstname=request.POST["fname"]
+        lastname=request.POST["lname"]
+        gmail=request.POST["mail"]
+        password=request.POST["password"]
+        repassword=request.POST["ppassword"]
+        ucheck=User.objects.filter(username=firstname)
+        echeck=User.objects.filter(email=gmail)
+        if ucheck:
+            msg="username is already taken"
+            return render(request,"register.html",{"b":msg})
+        elif echeck:
+            msge="email is already taken"
+            return render(request,"register.html",{"b":msge}) 
+        elif password=="" or password!=repassword:
+            msge="Invalid password"
+            return render(request,"register.html",{"b":msge})
+        else:
+            user=User.objects.create_user(username=username,first_name=firstname,last_name=lastname,email=gmail,password=password)
+            user.save();
+
+        return redirect("/")
+
+    else:
+        return render(request,"register.html")  
 
 
 def login(request):
@@ -24,35 +49,9 @@ def login(request):
             return redirect("/")
         else:
             msge="Invalid password or username"
-            return render(request,"login.html",{"a":msge})
+            return render(request,"login.html",{"msg":msge})
     else:
         return render(request,"login.html")  
 
 
 
-def send(request):
-    username=request.POST["uname"]
-    firstname=request.POST["fname"]
-    lastname=request.POST["lname"]
-    gmail=request.POST["mail"]
-    password=request.POST["password"]
-    repassword=request.POST["ppassword"]
-    ucheck=User.objects.filter(username=firstname)
-    echeck=User.objects.filter(email=gmail)
-    if ucheck:
-        msg="username is already taken"
-        return render(request,"register.html",{"a":msg})
-    elif echeck:
-        msge="email is already taken"
-        return render(request,"register.html",{"b":msge}) 
-    elif password=="" or password!=repassword:
-         msge="Invalid password"
-         return render(request,"register.html",{"b":msge})
-    else:
-        user=User.objects.create_user(username=username,first_name=firstname,last_name=lastname,email=gmail,password=password)
-        user.save();
-
-        return redirect("/")
-
-
-    
