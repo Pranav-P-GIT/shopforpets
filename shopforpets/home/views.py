@@ -1,14 +1,15 @@
 from django.shortcuts import render,redirect
 from django.contrib import auth
 from django.contrib.auth.models import User
-from product.models import pro1,pro2,pro3
+from .models import PetProduct
+
 
 
 # Create your views here.
 def index(request):
-    pro=[pro1,pro2,pro3]
+    data=PetProduct.objects.all
 
-    return render(request,"index.html",{"pro":pro})
+    return render(request,"index.html",{"pro":data})
 def test(request):
 
     val="php"
