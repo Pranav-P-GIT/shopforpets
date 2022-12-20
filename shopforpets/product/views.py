@@ -10,8 +10,11 @@ from .models import comment
 def detail(request):
     id=request.GET["id"]
     data=PetProduct.objects.get(id=id)
+    
     total=int(data.price)-(int(data.price)*int(data.discount)/100)
-    return render(request,"detail.html",{"pro":data,"total":total})
+    response=render(request,"detail.html",{"pro":data,"total":total})
+    response.set_cookie("price",data.price)
+    return response
 def cmt(request):
     comments=request.POST["comment"]
     name=request.POST["user"]

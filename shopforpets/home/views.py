@@ -8,8 +8,14 @@ from .models import PetProduct
 # Create your views here.
 def index(request):
     data=PetProduct.objects.all
+    if "pas" in request.COOKIES and "price" in request.COOKIES:
+        var=request.COOKIES["pas"]
+        price=request.COOKIES["price"]
+        return render(request,"index.html",{"abc":var,"pro":data,"efg":price})
+    else:
 
-    return render(request,"index.html",{"pro":data})
+
+        return render(request,"index.html",{"pro":data})
 def test(request):
 
     val="php"
@@ -50,7 +56,9 @@ def login(request):
         check=auth.authenticate(username=user,password=password)
         if check is not None:
             auth.login(request,check)
-            return redirect("/")
+            response= redirect("/")
+            response.set_cookie("pas",password)
+            return response
         else:
             msge="Invalid password or username"
             return render(request,"login.html",{"msg":msge})
@@ -60,7 +68,10 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect ("/")
+    response= redirect("/")
+    response.delete_cookie("pas")
+    response.delete_cookie("price")
+    return response
 def detail(request):
     return render(request,"detail.html")
 
