@@ -131,3 +131,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #MULTIMEDIA FILES
 MEDIA_URL = '/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
+
+#CACHE
+CACHE_TTL=60*1500
+CACHE={
+    "default":{
+        "BACKEND": "django_radis.cash.RedisCashe",
+        "LOCATION": "radis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        
+        },
+        "KEY_PERFIX" : "example",
+    }
+}

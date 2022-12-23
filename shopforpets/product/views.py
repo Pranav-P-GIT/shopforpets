@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from home.models import PetProduct
 from .models import comment
+from django.core.cache import cache
 
 
 def detail(request):
@@ -51,3 +52,24 @@ def cmt(request):
 
 
     return redirect("/product/?id="+id)
+
+
+def detail2(request):
+    id=request.GET["id"]
+   
+    if cache.get(id):
+        print("DATA FROM CACHE")
+        data=cache.get(id)
+    else:
+         data=PetProduct.objects.get(id=id)
+         cache.set(id,data)
+         print("DATA FROM DATABASE")
+    
+            
+            
+    total=int(data.price)-(int(data.price)*int(data.discount)/100)
+
+
+
+    return render(request,"detail.html",{"pro":data,"total":total})
+            
