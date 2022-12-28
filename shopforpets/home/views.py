@@ -2,6 +2,9 @@ from django.shortcuts import render,redirect
 from django.contrib import auth
 from django.contrib.auth.models import User
 from .models import PetProduct
+from django.conf import settings
+from django.core.mail import send_mail
+
 
 
 
@@ -33,13 +36,18 @@ def register(request):
         if ucheck:
             msg="username is already taken"
             return render(request,"register.html",{"b":msg})
-        elif echeck:
+        #elif echeck:
             msge="email is already taken"
             return render(request,"register.html",{"b":msge}) 
         elif password=="" or password!=repassword:
             msge="Invalid password"
             return render(request,"register.html",{"b":msge})
         else:
+            
+            request.session["det"]=[username,firstname,lastname,gmail,password,repassword]
+            send_mail("otp validation","Your otp is 56789",settings.EMAIL_HOST_USER,[gmail,])
+            return render(request,"indexx.html")
+            
             user=User.objects.create_user(username=username,first_name=firstname,last_name=lastname,email=gmail,password=password)
             user.save();
 
@@ -74,5 +82,27 @@ def logout(request):
     return response
 def detail(request):
     return render(request,"detail.html")
+
+
+
+
+def otp(request):
+    if request.method=="POST":
+        n1=request.POST["n1"]
+        n2=request.POST["n2"]
+        n3=request.POST["n3"]
+        n4=request.POST["n4"]
+        n5=request.POST["n5"]
+        otp=n1+n2+n3+n4+n5
+        if otp=="56789":
+            li=request.session["det"]
+            user=User.objects.create_user(username=li[0],first_name=li[1],last_name=li[2],email=li[3],password=li[4])
+            user.save();
+            return redirect("/")
+        else: 
+            a="Enter otp again"   
+            return render(request,"indexx.html",{"c":a})
+    else:    
+        return render(request,"indexx.html")
 
 

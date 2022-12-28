@@ -3,6 +3,7 @@ from .import views
 
 urlpatterns = [    
     path("",views.detail2,name="detailpage"),
-    path("cmt/",views.cmt,name="commentpage")
+    path("cmt/",views.cmt,name="commentpage"),
+    path("email/",views.test,name="emailpage"),
 
 ]

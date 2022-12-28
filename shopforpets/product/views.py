@@ -6,6 +6,9 @@ from django.db import models
 from home.models import PetProduct
 from .models import comment
 from django.core.cache import cache
+from django.conf import settings
+from django.core.mail import send_mail
+
 
 
 def detail(request):
@@ -72,4 +75,15 @@ def detail2(request):
 
 
     return render(request,"detail.html",{"pro":data,"total":total})
+
+
+def test(request):
+    email_from=settings.EMAIL_HOST_USER
+    email_to=['pranavpppp1@gmail.com',]
+    subject='corona'
+    message='I am coming'
+    send_mail(subject,message,email_from,email_to)
+    return render(request,"test.html")
+
+
             
